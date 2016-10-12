@@ -1,0 +1,79 @@
+body {
+    font-size: 24px;
+    background: #4f4f4f;
+    color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+}
+
+.todolist {
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+}
+li {
+    margin-top: 10px;
+}
+
+.done-true {
+    text-decoration: line-through;
+}
+
+.todolist li .edit {
+    display: none;
+}
+.todolist li.editing {
+    /*border-bottom: 1px solid #778899;*/
+}
+
+.todolist li.editing .view {
+    display: none;
+}
+.todolist li.editing .edit {
+    display: block;
+    padding: 13px 15px 14px 20px;
+    margin: 0;
+}
+.description {
+    height: 100px;
+    background: #2e6da4;
+    padding: 0 10px 0 10px;
+}
+.description-true {
+    background: darkblue;
+}
+
+.glyphicon-remove {
+    color: red;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+}
+.glyphicon-remove:hover {
+    color: darkred;
+    cursor: pointer;
+}
+
+.btn {
+    margin-top: 10px;
+}
+label {
+    margin-top: 10px;
+}
+
+.type {
+    position: absolute;
+    top: 50%;
+    left: 30%
+}
+.time {
+    position: absolute;
+    top: 50%;
+    left: 60%
+}
+
+.time > i {
+    margin-right: 4px;
+}

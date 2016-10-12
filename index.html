@@ -3,8 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>AngularJS</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+<div class="container" ng-app="app" ng-controller="todo">
+    <div class="row">
+        <h1>{{ name }}</h1>
+        <div class="row">
+            <form class="form-group col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8" ng-submit="addTodo()">
+                <label for="task">Task:</label>
+                <textarea ng-model="todoInput" class="form-control" rows="4" id="task" placeholder="What should I do?" required></textarea>
+                <label for="type">Type:</label>
+                <select class="form-control" id="type" name="type" ng-model="type" ng-init="type = categories[0]" ng-options="value.name for value in categories" required></select>
+                <label for="prediction">Predicted time:</label>
+                <select class="form-control" id="prediction" ng-model="time" ng-init="time = predictions[0]" ng-options="value for value in predictions" required></select>
+                <button class="btn btn-success pull-right">Add Task!</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="todolist list-inline">
+                <li ng-repeat="todo in todoTab" ng-dblclick="toggleEditMode()" class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="description description-{{ todo.done }}">
+                        <div class="view">
+                            <input type="checkbox" ng-model="todo.done"/>
+                            <span class="done-{{ todo.done }}" ng-click="editTodo(todo)">{{ todo.text | limitTo: 20 }}</span>
+                            <span ng-click="deleteTask($index)" class="glyphicon glyphicon-remove " aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-{{ todo.type.icon }} type" aria-hidden="true" title="{{ todo.type.name }}"></span>
+                            <span class="time"><i class="glyphicon glyphicon-time " aria-hidden="true"></i>{{ todo.time }}h </span>
+                        </div>
+                        <input class="edit form-control" type="text" ng-model="todo.text" ng-keyup="editOnEnter(todo)"/>
+                    </div>
 
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.0rc1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    var app = angular.module("app", []);
+
+    app.controller('todo', function ($scope) {
+
+        $scope.name = "Todo App - AngularJS";
+        $scope.predictions = [0.5, 1, 1.5, 2, 3, 5];
+        $scope.categories = [
+            { name: 'Personal', 'icon': 'user' },
+            { name: 'School', 'icon': 'blackboard' },
+            { name: 'Sport', 'icon': 'tree-conifer' },
+            { name: 'Other', 'icon': 'paperclip' }];
+        $scope.todoTab = [
+            { text: 'Example 1', type: {name: 'Personal', 'icon': 'user'}, time: "0.5"},
+            { text: 'Example 2', type: {name: 'School', 'icon': 'blackboard'}, time: "2"},
+            { text: 'Example 3', type: {name: 'Sport', 'icon': 'tree-conifer'}, time: "1.5"},
+            { text: 'Example 4', type: {name: 'Other', 'icon': 'paperclip'}, time: "5"},
+            { text: 'Example 5', type: {name: 'Sport', 'icon': 'tree-conifer'}, time: "2"}];
+
+        $scope.addTodo = function () {
+            $scope.todoTab.push({text: $scope.todoInput, done: false, type: $scope.type, time: $scope.time});
+            $scope.todoInput = '';
+            console.log($scope.todoTab);
+        };
+
+        $scope.deleteTask = function (idx){
+            var toDeleteTab = $scope.todoTab;
+            $scope.todoTab = [];
+            var indexTemp = 0;
+            angular.forEach(toDeleteTab, function(todo) {
+                if(indexTemp != idx) $scope.todoTab.push(todo);
+                indexTemp++;
+            });
+        };
+
+        $scope.editTodo = function (todo) {
+            $scope.currentItemIndex = $scope.todoTab.indexOf(todo);
+            console.log($scope.currentItemIndex);
+        };
+
+        $scope.toggleEditMode = function(){
+            $(event.target).closest('li').toggleClass('editing');
+        };
+
+        $scope.editOnEnter = function(todo){
+            if(event.keyCode == 13 && todo.text){
+                $scope.toggleEditMode();
+            }
+        };
+
+    })
+
+</script>
 </body>
 </html>
