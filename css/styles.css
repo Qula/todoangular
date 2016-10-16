@@ -41,8 +41,14 @@ li {
     background: #2e6da4;
     padding: 0 10px 0 10px;
 }
+.description:hover {
+    background: #2e6ddf;
+}
 .description-true {
-    background: darkblue;
+    background: #2EA45B;
+}
+.description-true:hover {
+    background: #34B356;
 }
 
 .glyphicon-remove {
@@ -58,6 +64,19 @@ li {
 
 .btn {
     margin-top: 10px;
+    /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+    -webkit-border-radius: 0;
+    /* Firefox 1-3.6 */
+    -moz-border-radius: 0;
+    /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+    border-radius: 0;
+}
+.btn-info {
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+pre {
+    height: 300px;
 }
 label {
     margin-top: 10px;

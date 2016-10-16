@@ -41,6 +41,10 @@
             </ul>
         </div>
     </div>
+    <button class="btn btn-info" data-ng-click="toggleJson=!toggleJson">Show/Hide JSON  <span class="glyphicon glyphicon-arrow-right"></span></button>
+    <pre ng-show="toggleJson">
+        {{todoTab | json}}
+    </pre>
 </div>
 
 
